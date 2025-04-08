@@ -1,0 +1,14 @@
+{
+  "name": "yoopies/tin",
+  "description": "Provide validation tools for Taxpayer Identification Number",
+  "license": "mit",
+  "type": "library",
+  "require": {
+    "php": ">= 7.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Yoopies\\Tin\\": "src/"
+    }
+  }
+}

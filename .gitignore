@@ -1,0 +1,8 @@
+/.direnv/
+/build/
+/vendor/
+/composer.lock
+/example/
+/.idea/
+/test.php
+/.php_cs.cache
