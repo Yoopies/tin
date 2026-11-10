@@ -54,35 +54,17 @@ final class Cyprus extends CountryHandler
 
     private function recodeValue(int $x): int
     {
-        switch ($x) {
-            case 1:
-                return 0;
-
-            case 2:
-                return 5;
-
-            case 3:
-                return 7;
-
-            case 4:
-                return 9;
-
-            case 5:
-                return 13;
-
-            case 6:
-                return 15;
-
-            case 7:
-                return 17;
-
-            case 8:
-                return 19;
-
-            case 9:
-                return 21;
-        }
-
-        return 1;
+        return match ($x) {
+            1 => 0,
+            2 => 5,
+            3 => 7,
+            4 => 9,
+            5 => 13,
+            6 => 15,
+            7 => 17,
+            8 => 19,
+            9 => 21,
+            default => 1,
+        };
     }
 }

@@ -38,12 +38,12 @@ use Yoopies\Tin\Exception\TINException;
 /**
  * The main class to validate TIN numbers.
  */
-final class TIN
+final readonly class TIN
 {
     /**
      * @var array<string, class-string>
      */
-    private static $algorithms = [
+    private const ALGORITHMS = [
         'AT' => Austria::class,
         'BE' => Belgium::class,
         'BG' => Bulgaria::class,
@@ -74,14 +74,8 @@ final class TIN
         'UK' => UnitedKingdom::class,
     ];
 
-    /**
-     * @var string
-     */
-    private $slug;
-
-    private function __construct(string $slug)
+    private function __construct(private string $slug)
     {
-        $this->slug = $slug;
     }
 
     /**
@@ -89,9 +83,16 @@ final class TIN
      */
     public function check(bool $strict = false): bool
     {
-        $parsedTin = $this->parse($this->slug, $strict);
+        $slug = ltrim($this->slug);
 
-        return $this->getAlgorithm($parsedTin['country'])->validate($parsedTin['tin']);
+        if ('' === $slug) {
+            throw TINException::emptySlug();
+        }
+
+        $country = substr($slug, 0, 2);
+        $tin = substr($slug, 2);
+
+        return $this->getAlgorithm($country)->validate($tin, $strict);
     }
 
     public static function from(string $countryCode, string $tin): TIN
@@ -106,7 +107,7 @@ final class TIN
 
     public static function isCountrySupported(string $countryCode): bool
     {
-        foreach (self::$algorithms as $algorithm) {
+        foreach (self::ALGORITHMS as $algorithm) {
             if (true === $algorithm::supports($countryCode)) {
                 return true;
             }
@@ -119,7 +120,7 @@ final class TIN
     {
         try {
             $this->check($strict);
-        } catch (TINException $e) {
+        } catch (TINException) {
             return false;
         }
 
@@ -131,7 +132,7 @@ final class TIN
      */
     private function getAlgorithm(string $country): CountryHandlerInterface
     {
-        foreach (self::$algorithms as $algorithm) {
+        foreach (self::ALGORITHMS as $algorithm) {
             if (true === $algorithm::supports($country)) {
                 $handler = new $algorithm();
 
@@ -142,33 +143,5 @@ final class TIN
         }
 
         throw TINException::invalidCountry($country);
-    }
-
-    private function normalizeTin(string $tin): string
-    {
-        if (null !== $string = preg_replace('#[^[:alnum:]\-+]#u', '', $tin)) {
-            return strtoupper($string);
-        }
-
-        return '';
-    }
-
-    /**
-     * @throws TINException
-     *
-     * @return non-empty-array<'country'|'tin', string>
-     */
-    private function parse(string $slug, bool $strict): array
-    {
-        if ('' === $slug) {
-            throw TINException::emptySlug();
-        }
-
-        [$country, $tin] = sscanf($slug, '%2s%s') + ['', ''];
-
-        return [
-            'country' => (string) $country,
-            'tin' => true === $strict ? (string) $tin : $this->normalizeTin((string) $tin),
-        ];
     }
 }

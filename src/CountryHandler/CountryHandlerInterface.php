@@ -40,7 +40,9 @@ interface CountryHandlerInterface
     /**
      * Validate a tin number.
      *
+     * In strict mode, the TIN is only uppercased: non-alphanumeric characters (spaces, dots, slashes...) are not stripped.
+     *
      * @throws TINException
      */
-    public function validate(string $tin): bool;
+    public function validate(string $tin, bool $strict = false): bool;
 }

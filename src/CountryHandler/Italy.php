@@ -41,7 +41,7 @@ final class Italy extends CountryHandler
     /**
      * @var array<int, string>
      */
-    private $listSet = [];
+    private array $listSet = [];
 
     protected function hasValidDate(string $tin): bool
     {
@@ -115,144 +115,54 @@ final class Italy extends CountryHandler
 
     private function convertOddCharacter(string $c): int
     {
-        $normalizedChar = $c;
-
-        switch ($normalizedChar) {
-            case '0':
-            case 'A':
-                return 1;
-
-            case '1':
-            case 'B':
-                return 0;
-
-            case '2':
-            case 'C':
-                return 5;
-
-            case '3':
-            case 'D':
-                return 7;
-
-            case '4':
-            case 'E':
-                return 9;
-
-            case '5':
-            case 'F':
-                return 13;
-
-            case '6':
-            case 'G':
-                return 15;
-
-            case '7':
-            case 'H':
-                return 17;
-
-            case '8':
-            case 'I':
-                return 19;
-
-            case '9':
-            case 'J':
-                return 21;
-
-            case 'K':
-                return 2;
-
-            case 'L':
-                return 4;
-
-            case 'M':
-                return 18;
-
-            case 'N':
-                return 20;
-
-            case 'O':
-                return 11;
-
-            case 'P':
-                return 3;
-
-            case 'Q':
-                return 6;
-
-            case 'R':
-                return 8;
-
-            case 'S':
-                return 12;
-
-            case 'T':
-                return 14;
-
-            case 'U':
-                return 16;
-
-            case 'V':
-                return 10;
-
-            case 'W':
-                return 22;
-
-            case 'X':
-                return 25;
-
-            case 'Y':
-                return 24;
-
-            case 'Z':
-                return 23;
-
-            default:
-                return -1;
-        }
+        return match ($c) {
+            '0', 'A' => 1,
+            '1', 'B' => 0,
+            '2', 'C' => 5,
+            '3', 'D' => 7,
+            '4', 'E' => 9,
+            '5', 'F' => 13,
+            '6', 'G' => 15,
+            '7', 'H' => 17,
+            '8', 'I' => 19,
+            '9', 'J' => 21,
+            'K' => 2,
+            'L' => 4,
+            'M' => 18,
+            'N' => 20,
+            'O' => 11,
+            'P' => 3,
+            'Q' => 6,
+            'R' => 8,
+            'S' => 12,
+            'T' => 14,
+            'U' => 16,
+            'V' => 10,
+            'W' => 22,
+            'X' => 25,
+            'Y' => 24,
+            'Z' => 23,
+            default => -1,
+        };
     }
 
     private function getMonthNumber(string $m): int
     {
-        switch ($m) {
-            case 'A':
-                return 1;
-
-            case 'B':
-                return 2;
-
-            case 'C':
-                return 3;
-
-            case 'D':
-                return 4;
-
-            case 'E':
-                return 5;
-
-            case 'H':
-                return 6;
-
-            case 'L':
-                return 7;
-
-            case 'M':
-                return 8;
-
-            case 'P':
-                return 9;
-
-            case 'R':
-                return 10;
-
-            case 'S':
-                return 11;
-
-            case 'T':
-                return 12;
-
-            default:
-                return -1;
-        }
+        return match ($m) {
+            'A' => 1,
+            'B' => 2,
+            'C' => 3,
+            'D' => 4,
+            'E' => 5,
+            'H' => 6,
+            'L' => 7,
+            'M' => 8,
+            'P' => 9,
+            'R' => 10,
+            'S' => 11,
+            'T' => 12,
+            default => -1,
+        };
     }
 
     private function getNumberFromChar(string $m): int
@@ -261,39 +171,18 @@ final class Italy extends CountryHandler
             return (int) $m;
         }
 
-        switch ($m) {
-            case 'L':
-                return 0;
-
-            case 'M':
-                return 1;
-
-            case 'N':
-                return 2;
-
-            case 'P':
-                return 3;
-
-            case 'Q':
-                return 4;
-
-            case 'R':
-                return 5;
-
-            case 'S':
-                return 6;
-
-            case 'T':
-                return 7;
-
-            case 'U':
-                return 8;
-
-            case 'V':
-                return 9;
-
-            default:
-                return -1;
-        }
+        return match ($m) {
+            'L' => 0,
+            'M' => 1,
+            'N' => 2,
+            'P' => 3,
+            'Q' => 4,
+            'R' => 5,
+            'S' => 6,
+            'T' => 7,
+            'U' => 8,
+            'V' => 9,
+            default => -1,
+        };
     }
 }

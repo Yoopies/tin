@@ -15,9 +15,9 @@ abstract class CountryHandler implements CountryHandlerInterface
         return strtoupper($country) === strtoupper(static::COUNTRYCODE);
     }
 
-    final public function validate(string $tin): bool
+    final public function validate(string $tin, bool $strict = false): bool
     {
-        $normalizedTin = $this->normalizeTin($tin);
+        $normalizedTin = $this->normalizeTin($tin, $strict);
 
         if (!$this->hasValidLength($normalizedTin)) {
             throw TINException::invalidLength($tin);
@@ -50,9 +50,7 @@ abstract class CountryHandler implements CountryHandlerInterface
     {
         return array_reduce(
             str_split((string) $int),
-            static function (int $carry, string $digit): int {
-                return $carry + (int) $digit;
-            },
+            static fn(int $carry, string $digit): int => $carry + (int) $digit,
             0
         );
     }
@@ -107,8 +105,15 @@ abstract class CountryHandler implements CountryHandlerInterface
         return 1 === preg_match(sprintf('/%s/i', $pattern), $subject);
     }
 
-    protected function normalizeTin(string $tin): string
+    /**
+     * Uppercase the TIN and, unless in strict mode, strip non-alphanumeric characters except '-' and '+'.
+     */
+    protected function normalizeTin(string $tin, bool $strict): string
     {
+        if ($strict) {
+            return strtoupper($tin);
+        }
+
         if (null !== $string = preg_replace('#[^[:alnum:]\-+]#u', '', $tin)) {
             return strtoupper($string);
         }

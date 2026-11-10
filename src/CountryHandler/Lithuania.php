@@ -53,73 +53,33 @@ final class Lithuania extends CountryHandler
 
     private function multiplyAccordingToWeight(int $val, int $index): int
     {
-        switch ($index) {
-            case 9:
-            case 0:
-                return $val * 1;
-
-            case 1:
-                return $val * 2;
-
-            case 2:
-                return $val * 3;
-
-            case 3:
-                return $val * 4;
-
-            case 4:
-                return $val * 5;
-
-            case 5:
-                return $val * 6;
-
-            case 6:
-                return $val * 7;
-
-            case 7:
-                return $val * 8;
-
-            case 8:
-                return $val * 9;
-
-            default:
-                return -1;
-        }
+        return match ($index) {
+            9, 0 => $val * 1,
+            1 => $val * 2,
+            2 => $val * 3,
+            3 => $val * 4,
+            4 => $val * 5,
+            5 => $val * 6,
+            6 => $val * 7,
+            7 => $val * 8,
+            8 => $val * 9,
+            default => -1,
+        };
     }
 
     private function multiplyAccordingToWeight2(int $val, int $index): int
     {
-        switch ($index) {
-            case 9:
-            case 0:
-                return $val * 3;
-
-            case 1:
-                return $val * 4;
-
-            case 2:
-                return $val * 5;
-
-            case 3:
-                return $val * 6;
-
-            case 4:
-                return $val * 7;
-
-            case 5:
-                return $val * 8;
-
-            case 6:
-                return $val * 9;
-
-            case 7:
-                return $val * 1;
-
-            case 8:
-                return $val * 2;
-
-            default:
-                return -1;
-        }
+        return match ($index) {
+            9, 0 => $val * 3,
+            1 => $val * 4,
+            2 => $val * 5,
+            3 => $val * 6,
+            4 => $val * 7,
+            5 => $val * 8,
+            6 => $val * 9,
+            7 => $val * 1,
+            8 => $val * 2,
+            default => -1,
+        };
     }
 }
