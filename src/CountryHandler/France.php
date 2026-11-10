@@ -30,9 +30,11 @@ final class France extends CountryHandler
 
         $remainderBy511 = $number % 511;
 
-        $checkDigits = 100 > $remainderBy511 ?
-            10 > $remainderBy511 ? (int) (substr($tin, 12, 13)) : (int) (substr($tin, 11, 13)) :
-            (int) (substr($tin, 10, 13));
+        $checkDigits = match (true) {
+            10 > $remainderBy511 => (int) substr($tin, 12),
+            100 > $remainderBy511 => (int) substr($tin, 11),
+            default => (int) substr($tin, 10),
+        };
 
         return $remainderBy511 === $checkDigits;
     }

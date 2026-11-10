@@ -4,11 +4,25 @@
   "license": "mit",
   "type": "library",
   "require": {
-    "php": ">= 7.4"
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
   },
   "autoload": {
     "psr-4": {
       "Yoopies\\Tin\\": "src/"
     }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Yoopies\\Tin\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "config": {
+    "sort-packages": true
   }
 }

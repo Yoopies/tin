@@ -57,72 +57,29 @@ final class Finland extends CountryHandler
             return (string) $number;
         }
 
-        switch ($number) {
-            case 10:
-                return 'A';
-
-            case 11:
-                return 'B';
-
-            case 12:
-                return 'C';
-
-            case 13:
-                return 'D';
-
-            case 14:
-                return 'E';
-
-            case 15:
-                return 'F';
-
-            case 16:
-                return 'H';
-
-            case 17:
-                return 'J';
-
-            case 18:
-                return 'K';
-
-            case 19:
-                return 'L';
-
-            case 20:
-                return 'M';
-
-            case 21:
-                return 'N';
-
-            case 22:
-                return 'P';
-
-            case 23:
-                return 'R';
-
-            case 24:
-                return 'S';
-
-            case 25:
-                return 'T';
-
-            case 26:
-                return 'U';
-
-            case 27:
-                return 'V';
-
-            case 28:
-                return 'W';
-
-            case 29:
-                return 'X';
-
-            case 30:
-                return 'Y';
-
-            default:
-                return ' ';
-        }
+        return match ($number) {
+            10 => 'A',
+            11 => 'B',
+            12 => 'C',
+            13 => 'D',
+            14 => 'E',
+            15 => 'F',
+            16 => 'H',
+            17 => 'J',
+            18 => 'K',
+            19 => 'L',
+            20 => 'M',
+            21 => 'N',
+            22 => 'P',
+            23 => 'R',
+            24 => 'S',
+            25 => 'T',
+            26 => 'U',
+            27 => 'V',
+            28 => 'W',
+            29 => 'X',
+            30 => 'Y',
+            default => ' ',
+        };
     }
 }

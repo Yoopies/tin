@@ -69,9 +69,9 @@ final class Spain extends CountryHandler
         return $this->isFollowRule1($tin) || $this->isFollowRule2($tin);
     }
 
-    protected function normalizeTin(string $tin): string
+    protected function normalizeTin(string $tin, bool $strict): string
     {
-        $tin = parent::normalizeTin($tin);
+        $tin = parent::normalizeTin($tin, $strict);
 
         return str_pad($tin, self::LENGTH, '0', STR_PAD_LEFT);
     }
@@ -107,9 +107,7 @@ final class Spain extends CountryHandler
             $checksum1 = (string) ((10 - ($checksum % 10)) % 10);
             $checksum2 = substr(self::CONTROL_2, (int) $checksum1, 1);
 
-            if (null === $digit) {
-                $digit = false === strpos(self::CHECKSUM_LETTER, $tinParts[1]);
-            }
+            $digit ??= !str_contains(self::CHECKSUM_LETTER, $tinParts[1]);
 
             return $digit ? $checksum1 : $checksum2;
         }
@@ -147,7 +145,7 @@ final class Spain extends CountryHandler
         [,$tinFirstLetter , $tinNumber, $tinChecksum] = $tinParts;
 
         $tinNumber = $tinFirstLetter . $tinNumber;
-        $digit = (false === strpos(self::CONTROL_2, $tinChecksum));
+        $digit = !str_contains(self::CONTROL_2, $tinChecksum);
 
         return $this->getChecksum($tinNumber, $digit) === $tinChecksum;
     }

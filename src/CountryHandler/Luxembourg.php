@@ -29,7 +29,7 @@ final class Luxembourg extends CountryHandler
     /**
      * @var array<int, array<int, int>>
      */
-    private static $D = [
+    private const D = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
         [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
@@ -45,7 +45,7 @@ final class Luxembourg extends CountryHandler
     /**
      * @var array<int, array<int, int>>
      */
-    private static $P = [
+    private const P = [
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
         [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
         [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
@@ -112,8 +112,8 @@ final class Luxembourg extends CountryHandler
 
         for ($j = 0; $listNumbersCount > $j; ++$j) {
             $item = $listNumbers[$j];
-            $p = self::$P[$j % 8][$item];
-            $check = self::$D[$check][$p];
+            $p = self::P[$j % 8][$item];
+            $check = self::D[$check][$p];
         }
 
         return 0 === $check;
